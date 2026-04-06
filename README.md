@@ -2,7 +2,7 @@
 
 Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca fuzzy, navegação por teclado, zero dependências externas.
 
-![Tab Selector](icons/icon128.png)
+![Tab Selector](docs/screenshot.png)
 
 ## Funcionalidades
 
