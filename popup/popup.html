@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tab Selector</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="search-container">
+      <span id="search-icon">⌕</span>
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Buscar abas..."
+        autocomplete="off"
+        spellcheck="false"
+      />
+    </div>
+    <div id="tab-list"></div>
+    <div id="footer">
+      <span><kbd>↑↓</kbd> navegar</span>
+      <span><kbd>Enter</kbd> abrir</span>
+      <span><kbd>Esc</kbd> fechar</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
