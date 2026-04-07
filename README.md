@@ -23,7 +23,7 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/seu-usuario/tab-selector.git
+   git clone https://github.com/Rt-00/browser_tab_selection_extension.git
    ```
 2. Acesse `chrome://extensions` (ou `brave://extensions`)
 3. Ative **Modo do desenvolvedor** no canto superior direito
