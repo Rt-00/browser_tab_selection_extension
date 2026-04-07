@@ -27,7 +27,7 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
    ```
 2. Acesse `chrome://extensions` (ou `brave://extensions`)
 3. Ative **Modo do desenvolvedor** no canto superior direito
-4. Clique em **Carregar sem compactação** e selecione a pasta `tab-selector`
+4. Clique em **Carregar sem compactação** e selecione a pasta `browser_tab_selection_extension`
 
 ## Uso
 
@@ -43,9 +43,10 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 ## Estrutura do projeto
 
 ```
-tab-selector/
+browser_tab_selection_extension/
 ├── manifest.json       # Configuração da extensão (Manifest V3)
 ├── service-worker.js   # Background: atalho, abertura do popup, troca de abas
+├── docs/               # Arquivos utilizados no README.md
 ├── icons/              # Ícones da extensão (16, 32, 48, 128px)
 └── popup/
     ├── popup.html
