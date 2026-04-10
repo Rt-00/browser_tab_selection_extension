@@ -75,7 +75,7 @@ const tabCount = document.getElementById('tab-count');
 
 function renderTabs() {
   if (filteredTabs.length === 0) {
-    tabList.innerHTML = '<div id="empty-state">Nenhuma aba encontrada</div>';
+    tabList.innerHTML = '<div id="empty-state"><span class="empty-icon">⊘</span>Nenhuma aba encontrada</div>';
     tabCount.textContent = `0 de ${allTabs.length}`;
     return;
   }

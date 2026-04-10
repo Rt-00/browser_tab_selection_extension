@@ -89,17 +89,19 @@ html, body {
 }
 
 #tab-list::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: #5c5c5c;
   border-radius: 3px;
 }
 
 .tab-item {
   display: flex;
   align-items: center;
-  padding: 6px 12px;
+  padding: 7px 12px;
   cursor: pointer;
   gap: 10px;
   min-height: 40px;
+  transition: background-color 0.12s ease;
+  border-left: 2px solid transparent;
 }
 
 .tab-item:hover {
@@ -108,6 +110,7 @@ html, body {
 
 .tab-item.selected {
   background: var(--bg-selected);
+  border-left-color: var(--accent);
 }
 
 .tab-favicon {
@@ -163,9 +166,9 @@ html, body {
 
 .badge {
   font-size: 10px;
-  padding: 1px 5px;
-  border-radius: 3px;
-  background: var(--bg-hover);
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: transparent;
   color: var(--text-dim);
   border: 1px solid var(--border);
 }
@@ -189,17 +192,24 @@ html, body {
 /* Empty state */
 #empty-state {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   height: 80px;
   color: var(--text-dim);
   font-size: 13px;
 }
 
+#empty-state .empty-icon {
+  font-size: 20px;
+  opacity: 0.4;
+}
+
 /* Footer */
 #footer {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   padding: 6px 12px;
   border-top: 1px solid var(--border);
   color: var(--text-dim);
@@ -220,4 +230,10 @@ kbd {
   border-radius: 3px;
   padding: 1px 4px;
   color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab-item {
+    transition: none;
+  }
 }
