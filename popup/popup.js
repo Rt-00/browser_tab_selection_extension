@@ -208,6 +208,17 @@ document.addEventListener('keydown', (e) => {
       switchToSelected();
       break;
 
+    case 'Delete':
+      e.preventDefault();
+      if (filteredTabs.length === 0) break;
+      chrome.runtime.sendMessage({ type: 'CLOSE_TAB', tabId: filteredTabs[selectedIndex].tab.id }, (response) => {
+        allTabs = response.tabs;
+        filterTabs(searchInput.value);
+        selectedIndex = Math.min(selectedIndex, filteredTabs.length - 1);
+        renderTabs();
+      });
+      break;
+
     case 'Escape':
       e.preventDefault();
       chrome.runtime.sendMessage({ type: 'CLOSE_POPUP' });

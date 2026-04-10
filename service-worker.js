@@ -79,6 +79,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true;
   }
 
+  if (message.type === 'CLOSE_TAB') {
+    chrome.tabs.remove(message.tabId).then(() => {
+      chrome.tabs.query({}).then((tabs) => {
+        const tabData = tabs.map((tab) => ({
+          id: tab.id,
+          windowId: tab.windowId,
+          title: tab.title || '(sem título)',
+          url: tab.url || '',
+          favIconUrl: tab.favIconUrl || '',
+          active: tab.active,
+          audible: tab.audible,
+        }));
+        sendResponse({ tabs: tabData });
+      });
+    });
+    return true;
+  }
+
   if (message.type === 'CLOSE_POPUP') {
     if (popupWindowId !== null) {
       chrome.windows.remove(popupWindowId);
