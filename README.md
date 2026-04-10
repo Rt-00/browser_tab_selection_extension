@@ -34,7 +34,7 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 | Ação | Como |
 |------|------|
 | Abrir o seletor | `Ctrl+Q` (Windows/Linux) · `Cmd+Q` (Mac) · clique no ícone |
-| Navegar na lista | `↑` / `↓` |
+| Navegar na lista | `↑` / `↓` · `Ctrl+N` / `Ctrl+P` |
 | Abrir a aba selecionada | `Enter` |
 | Fechar | `Esc` |
 

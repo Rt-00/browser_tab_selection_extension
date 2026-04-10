@@ -179,6 +179,20 @@ document.addEventListener('keydown', (e) => {
       renderTabs();
       break;
 
+    case 'n':
+      if (!e.ctrlKey) break;
+      e.preventDefault();
+      selectedIndex = Math.min(selectedIndex + 1, filteredTabs.length - 1);
+      renderTabs();
+      break;
+
+    case 'p':
+      if (!e.ctrlKey) break;
+      e.preventDefault();
+      selectedIndex = Math.max(selectedIndex - 1, 0);
+      renderTabs();
+      break;
+
     case 'Enter':
       e.preventDefault();
       switchToSelected();
