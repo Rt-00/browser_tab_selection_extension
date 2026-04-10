@@ -67,6 +67,7 @@ function escapeHtml(str) {
 let allTabs = [];
 let filteredTabs = [];
 let selectedIndex = 0;
+let currentWindowId = null;
 
 const searchInput = document.getElementById('search-input');
 const tabList = document.getElementById('tab-list');
@@ -111,7 +112,13 @@ function renderTabs() {
 
 function filterTabs(query) {
   if (!query.trim()) {
-    filteredTabs = allTabs.map((tab) => ({ tab, score: 0, titleIndices: [], urlIndices: [] }));
+    filteredTabs = allTabs
+      .map((tab) => ({ tab, score: 0, titleIndices: [], urlIndices: [] }))
+      .sort((a, b) => {
+        const aLocal = a.tab.windowId === currentWindowId ? 0 : 1;
+        const bLocal = b.tab.windowId === currentWindowId ? 0 : 1;
+        return aLocal - bLocal;
+      });
   } else {
     filteredTabs = allTabs
       .map((tab) => {
@@ -155,6 +162,7 @@ function switchToSelected() {
 // Carrega abas do service worker
 chrome.runtime.sendMessage({ type: 'GET_TABS' }, (response) => {
   allTabs = response.tabs;
+  currentWindowId = response.currentWindowId;
   filterTabs('');
 
   // Pré-seleciona a aba que estava ativa antes do popup abrir
