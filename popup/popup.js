@@ -71,10 +71,12 @@ let currentWindowId = null;
 
 const searchInput = document.getElementById('search-input');
 const tabList = document.getElementById('tab-list');
+const tabCount = document.getElementById('tab-count');
 
 function renderTabs() {
   if (filteredTabs.length === 0) {
     tabList.innerHTML = '<div id="empty-state">Nenhuma aba encontrada</div>';
+    tabCount.textContent = `0 de ${allTabs.length}`;
     return;
   }
 
@@ -108,6 +110,12 @@ function renderTabs() {
   // Garante que o item selecionado está visível
   const selected = tabList.querySelector('.tab-item.selected');
   if (selected) selected.scrollIntoView({ block: 'nearest' });
+
+  // Atualiza contador
+  const query = searchInput ? searchInput.value.trim() : '';
+  tabCount.textContent = query
+    ? `${filteredTabs.length} de ${allTabs.length}`
+    : `${allTabs.length} abas`;
 }
 
 function filterTabs(query) {

@@ -208,6 +208,10 @@ html, body {
   background: var(--bg-input);
 }
 
+#tab-count {
+  margin-left: auto;
+}
+
 kbd {
   font-family: var(--font-mono);
   font-size: 10px;
