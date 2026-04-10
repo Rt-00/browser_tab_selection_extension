@@ -169,27 +169,27 @@ document.addEventListener('keydown', (e) => {
   switch (e.key) {
     case 'ArrowDown':
       e.preventDefault();
-      selectedIndex = Math.min(selectedIndex + 1, filteredTabs.length - 1);
+      selectedIndex = (selectedIndex + 1) % filteredTabs.length;
       renderTabs();
       break;
 
     case 'ArrowUp':
       e.preventDefault();
-      selectedIndex = Math.max(selectedIndex - 1, 0);
+      selectedIndex = (selectedIndex - 1 + filteredTabs.length) % filteredTabs.length;
       renderTabs();
       break;
 
     case 'n':
       if (!e.ctrlKey) break;
       e.preventDefault();
-      selectedIndex = Math.min(selectedIndex + 1, filteredTabs.length - 1);
+      selectedIndex = (selectedIndex + 1) % filteredTabs.length;
       renderTabs();
       break;
 
     case 'p':
       if (!e.ctrlKey) break;
       e.preventDefault();
-      selectedIndex = Math.max(selectedIndex - 1, 0);
+      selectedIndex = (selectedIndex - 1 + filteredTabs.length) % filteredTabs.length;
       renderTabs();
       break;
 
