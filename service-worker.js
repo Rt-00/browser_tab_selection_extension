@@ -1,6 +1,11 @@
 let popupWindowId = null;
+let previousTabId = null;
 
 async function openPopup() {
+  // Salva a aba ativa antes de abrir o popup
+  const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (activeTab) previousTabId = activeTab.id;
+
   // Se já existe uma janela aberta, foca nela
   if (popupWindowId !== null) {
     try {
@@ -56,7 +61,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         active: tab.active,
         audible: tab.audible,
       }));
-      sendResponse({ tabs: tabData });
+      sendResponse({ tabs: tabData, previousTabId });
     });
     return true; // resposta assíncrona
   }

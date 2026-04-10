@@ -156,6 +156,16 @@ function switchToSelected() {
 chrome.runtime.sendMessage({ type: 'GET_TABS' }, (response) => {
   allTabs = response.tabs;
   filterTabs('');
+
+  // Pré-seleciona a aba que estava ativa antes do popup abrir
+  if (response.previousTabId) {
+    const idx = filteredTabs.findIndex((e) => e.tab.id === response.previousTabId);
+    if (idx !== -1) {
+      selectedIndex = idx;
+      renderTabs();
+    }
+  }
+
   searchInput.focus();
 });
 
