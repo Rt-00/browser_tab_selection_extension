@@ -1,6 +1,7 @@
 let popupWindowId = null;
 let previousTabId = null;
 let currentWindowId = null;
+let popupFocused = false;
 
 async function openPopup() {
   // Salva a aba ativa e a janela atual antes de abrir o popup
@@ -50,6 +51,19 @@ chrome.action.onClicked.addListener(() => openPopup());
 chrome.windows.onRemoved.addListener((windowId) => {
   if (windowId === popupWindowId) {
     popupWindowId = null;
+    popupFocused = false;
+  }
+});
+
+// Fecha o popup quando ele perde o foco (comportamento de launcher). Em WMs
+// tiling como o Hyprland, um popup esquecido ficaria perdido entre as janelas.
+chrome.windows.onFocusChanged.addListener((windowId) => {
+  if (popupWindowId === null) return;
+  if (windowId === popupWindowId) {
+    popupFocused = true;
+  } else if (popupFocused) {
+    popupFocused = false;
+    chrome.windows.remove(popupWindowId).catch(() => {});
   }
 });
 

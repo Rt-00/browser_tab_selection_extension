@@ -7,14 +7,14 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 ## Funcionalidades
 
 - Busca fuzzy por título e URL das abas abertas, com destaque dos caracteres que fazem match
-- Navegação inteiramente por teclado — setas ou atalhos estilo vim (`Ctrl+N` / `Ctrl+P`)
+- Navegação inteiramente por teclado — setas ou atalhos estilo vim (`Ctrl+J` / `Ctrl+K` ou `Ctrl+N` / `Ctrl+P`)
 - Navegação circular: ao chegar no final da lista, volta ao início (e vice-versa)
 - Pré-seleciona a aba anterior ao abrir — `Enter` imediato alterna entre as duas últimas abas (comportamento Alt+Tab)
 - Abas da janela atual aparecem primeiro na lista padrão
 - Fecha abas diretamente pelo seletor com `Delete`, sem precisar abrir cada uma
 - Exibe favicon, badge de aba ativa e badge de áudio
 - Contador de resultados no rodapé (`X de Y` durante a busca)
-- Abre centralizado na janela atual
+- Abre centralizado na janela atual e fecha sozinho ao perder o foco
 - Funciona em qualquer página, incluindo `chrome://` e PDFs
 
 ## Instalação
@@ -38,12 +38,18 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 | Ação | Atalho |
 |------|--------|
 | Abrir o seletor | `Ctrl+Q` (Windows/Linux) · `Cmd+Q` (Mac) · clique no ícone |
-| Navegar na lista | `↑` / `↓` · `Ctrl+N` / `Ctrl+P` |
+| Navegar na lista | `↑` / `↓` · `Ctrl+J` / `Ctrl+K` · `Ctrl+N` / `Ctrl+P` |
 | Abrir a aba selecionada | `Enter` |
 | Fechar aba selecionada | `Delete` |
 | Fechar o seletor | `Esc` |
 
 > O atalho de abertura pode ser alterado em `chrome://extensions/shortcuts`.
+
+## Hyprland / Omarchy
+
+No Wayland o compositor ignora a posição pedida pela extensão. O Hyprland também abre o popup em tile, como uma janela comum. Para que ele flutue centralizado, adicione a regra de [`contrib/hyprland/tab-selector.lua`](contrib/hyprland/tab-selector.lua) ao fim de `~/.config/hypr/hyprland.lua`, trocando `<EXTENSION_ID>` pelo ID da extensão em `brave://extensions`. Depois rode `hyprctl reload`.
+
+Para conferir a classe da janela, abra o seletor e rode `hyprctl clients | grep -B1 -A3 "Tab Selector"`.
 
 ## Estrutura do projeto
 
@@ -51,6 +57,7 @@ Extensão para Chrome/Brave que abre um seletor de abas estilo VSCode — busca 
 browser_tab_selection_extension/
 ├── manifest.json       # Configuração da extensão (Manifest V3)
 ├── service-worker.js   # Background: atalho, abertura do popup, troca de abas
+├── contrib/hyprland/   # Regra de janela para Hyprland/Omarchy
 ├── docs/               # Arquivos utilizados no README.md
 ├── icons/              # Ícones da extensão (16, 32, 48, 128px)
 └── popup/

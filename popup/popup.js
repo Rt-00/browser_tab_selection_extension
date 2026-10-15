@@ -206,6 +206,7 @@ document.addEventListener('keydown', (e) => {
       break;
 
     case 'n':
+    case 'j':
       if (!e.ctrlKey) break;
       e.preventDefault();
       selectedIndex = (selectedIndex + 1) % filteredTabs.length;
@@ -213,6 +214,7 @@ document.addEventListener('keydown', (e) => {
       break;
 
     case 'p':
+    case 'k':
       if (!e.ctrlKey) break;
       e.preventDefault();
       selectedIndex = (selectedIndex - 1 + filteredTabs.length) % filteredTabs.length;
@@ -250,8 +252,28 @@ tabList.addEventListener('click', (e) => {
   switchToSelected();
 });
 
+// Modo teclado: ao re-renderizar ou rolar a lista, o item sob o cursor parado
+// dispara mouseover e roubaria a seleção. O hover só volta a valer quando o
+// mouse se move de verdade (o Chrome também gera mousemove sintético ao rolar,
+// por isso comparamos a posição).
+let keyboardMode = true;
+let lastMouseX = null;
+let lastMouseY = null;
+
+document.addEventListener('keydown', () => { keyboardMode = true; }, true);
+
+document.addEventListener('mousemove', (e) => {
+  if (e.screenX === lastMouseX && e.screenY === lastMouseY) return;
+  const firstMove = lastMouseX === null;
+  lastMouseX = e.screenX;
+  lastMouseY = e.screenY;
+  // O primeiro evento só registra a posição inicial do cursor
+  if (!firstMove) keyboardMode = false;
+});
+
 // Hover atualiza seleção visual (sem mudar selectedIndex globalmente)
 tabList.addEventListener('mouseover', (e) => {
+  if (keyboardMode) return;
   const item = e.target.closest('.tab-item');
   if (!item) return;
   document.querySelectorAll('.tab-item.selected').forEach((el) => el.classList.remove('selected'));
